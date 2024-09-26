@@ -161,7 +161,7 @@ PS1+='\[${PROMPT_COLORS[0]}\]\[${COLOR256[257]}\]$(((UID==0)) && echo "\[${COLOR
 PS1+='\[${COLOR256[0]}\]\[${COLOR256[257]}\]'"$(zonename 2>/dev/null | grep -q '^global$' && echo 'GZ:')"'\[${COLOR256[256]}\]'
 
 # hostname
-PS1+='\[${PROMPT_COLORS[3]}\]\h '
+# PS1+='\[${PROMPT_COLORS[3]}\]\h '
 
 # uname
 PS1+='\[${PROMPT_COLORS[2]}\]'"$(uname | tr '[:upper:]' '[:lower:]')"' '
@@ -189,7 +189,7 @@ _prompt_command() {
 }
 PROMPT_COMMAND=_prompt_command
 
-PROMPT_DIRTRIM=6
+PROMPT_DIRTRIM=2
 
 # print a colorized diff
 colordiff() {
