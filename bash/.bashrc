@@ -342,6 +342,21 @@ untiny() {
 	echo "$last_location"
 }
 
+# load chrome history
+ch() {
+  local cols sep
+  cols=$(( COLUMNS / 3 ))
+  sep='{::}'
+
+  cp -f ~/Library/Application\ Support/Google/Chrome/Default/History /tmp/h
+
+  sqlite3 -separator $sep /tmp/h \
+    "select substr(title, 1, $cols), url
+     from urls order by last_visit_time desc" |
+  awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' |
+  fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs open
+}
+
 # Load external files
 . ~/.bash_aliases    2>/dev/null || true
 . ~/.bashrc.local    2>/dev/null || true
@@ -352,6 +367,10 @@ if [ -f `brew --prefix`/etc/bash_completion ]; then
 fi
 # . /etc/bash/bash_completion 2>/dev/null ||
 # 	. ~/.bash_completion 2>/dev/null
+
+# load fzf integration
+# eval "(fzf --bash)"   2>/dev/null || true
+# eval "fzf --bash" 2>/dev/null || true
 
 # path_clean
 
