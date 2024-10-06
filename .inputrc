@@ -21,3 +21,6 @@ set convert-meta off
 
 # Don't autocomplete hidden files unless pattern starts with .
 set match-hidden-files off
+
+# Autocomplete text after cursor
+set skip-completed-text on
