@@ -10,7 +10,7 @@ function doIt() {
 		--exclude ".gitignore" \
 		--exclude "install.sh" \
 		--exclude "brew.sh" \
-		--exclude "old_bash/" \
+		--exclude "macos.sh" \
 		--exclude "README.md" \
 		-avh --no-perms . ~;
 	source ~/.bash_profile;
