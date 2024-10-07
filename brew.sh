@@ -101,7 +101,7 @@ brew install koekeishiya/formulae/skhd
 brew install ssh-copy-id
 brew install tree
 brew install vbindiff
-brew install yabai
+brew install koekeishiya/formulae/yabai
 brew install zopfli
 
 # Remove outdated versions from the cellar.
