@@ -22,7 +22,7 @@ brew install moreutils
 # Install GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed.
 brew install findutils
 # Install GNU `sed`, overwriting the built-in `sed`.
-brew install gnu-sed --with-default-names
+brew install gnu-sed
 # Install a modern version of Bash.
 brew install bash
 brew install bash-completion2
@@ -84,6 +84,7 @@ brew install woff2
 brew install ack
 brew install bat
 #brew install exiv2
+brew install fzf
 brew install git
 brew install git-lfs
 brew install gs
@@ -94,10 +95,13 @@ brew install p7zip
 brew install pigz
 brew install pv
 brew install rename
+brew install ripgrep
 brew install rlwrap
+brew install koekeishiya/formulae/skhd
 brew install ssh-copy-id
 brew install tree
 brew install vbindiff
+brew install yabai
 brew install zopfli
 
 # Remove outdated versions from the cellar.
