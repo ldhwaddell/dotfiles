@@ -4,25 +4,57 @@ cd "$(dirname "${BASH_SOURCE}")";
 
 git pull origin main;
 
-function doIt() {
-	rsync --exclude ".git/" \
-		--exclude ".DS_Store" \
-		--exclude ".gitignore" \
-		--exclude "install.sh" \
-		--exclude "brew.sh" \
-		--exclude "macos.sh" \
-		--exclude "README.md" \
-		-avh --no-perms . ~;
-	source ~/.bash_profile;
+# verbose ln, because `ln -v` is not portable
+symlink() {
+	printf '%55s -> %s\n' "${1/#$HOME/\~}" "${2/#$HOME/\~}"
+	ln -nsf "$@"
 }
 
-if [ "$1" == "--force" -o "$1" == "-f" ]; then
-	doIt;
-else
-	read -p "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1;
-	echo "";
-	if [[ $REPLY =~ ^[Yy]$ ]]; then
-		doIt;
-	fi;
-fi;
-unset doIt;
+# NOTE: dotfiles config
+dotfiles=(
+	gitconfig
+)
+
+for f in "${dotfiles[@]}"; do
+	[[ -d ~/.$f && ! -L ~/.$f ]] && rm -r ~/."$f"
+	symlink "$PWD/$f" ~/."$f"
+done
+
+# NOTE: Bash config
+bash_dotfiles=(
+	path
+	bash_prompt
+	bash_profile
+	bashrc
+	exports
+	aliases
+	functions
+	extra
+	inputrc
+)
+
+for f in "${bash_dotfiles[@]}"; do
+	[[ -d ~/.$f && ! -L ~/.$f ]] && rm -r ~/."$f"
+	symlink "$PWD/bashrc/$f" ~/."$f"
+done
+
+
+# NOTE: application config folders
+config_folders=(
+	git
+	iterm2
+	nvim
+	skhd
+	yabai
+)
+
+# Check if ~/.config exists, and create it if it doesn't
+if [[ ! -d ~/.config ]]; then
+    mkdir ~/.config
+    echo "Created ~/.config directory."
+fi
+
+for f in "${config_folders[@]}"; do
+	[[ -d ~/.config/$f && ! -L ~/.config/$f ]] && rm -r ~/.config/"$f"
+	symlink "$PWD/$f" ~/.config/"$f"
+done
