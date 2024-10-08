@@ -22,12 +22,12 @@ done
 
 # NOTE: Bash config
 bash_dotfiles=(
+	extra
 	path
 	bash_prompt
 	bash_profile
 	bashrc
 	exports
-	extra
 	aliases
 	functions
 	extra
