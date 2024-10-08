@@ -27,6 +27,7 @@ bash_dotfiles=(
 	bash_profile
 	bashrc
 	exports
+	extra
 	aliases
 	functions
 	extra
