@@ -8,10 +8,24 @@ alt - j : yabai -m window --focus south
 alt - k : yabai -m window --focus north
 alt - l : yabai -m window --focus east
 
-# Focus Monitor/Window
+# Focus display focused before the current one (so you can alternate)
+alt - w : yabai -m display --focus recent
 
+# Focus window focused before the current one (so you can alternate)
+alt - p : yabai -m window --focus recent
 
+# Focus specific monitor
+alt - 2 : yabai -m display --focus 1
+alt - 1 : yabai -m display --focus 2
 
+# Change current window size
+ctrl + alt - h : yabai -m window --resize right:-20:0 2> /dev/null || yabai -m window --resize left:-20:0 2> /dev/null
+ctrl + alt - j : yabai -m window --resize bottom:0:20 2> /dev/null || yabai -m window --resize top:0:20 2> /dev/null
+ctrl + alt - k : yabai -m window --resize bottom:0:-20 2> /dev/null || yabai -m window --resize top:0:-20 2> /dev/null
+ctrl + alt - l : yabai -m window --resize right:20:0 2> /dev/null || yabai -m window --resize left:20:0 2> /dev/null
+
+# Balance current windows
+ctrl + alt - 0x18 : yabai -m space --balance
 
 # Moving windows
 shift + alt - h : yabai -m window --warp west
@@ -23,8 +37,8 @@ shift + alt - l : yabai -m window --warp east
 shift + alt - m : yabai -m window --space last; yabai -m space --focus last
 shift + alt - p : yabai -m window --space prev; yabai -m space --focus prev
 shift + alt - n : yabai -m window --space next; yabai -m space --focus next
-shift + alt - 1 : yabai -m window --space 1; yabai -m space --focus 1
-shift + alt - 2 : yabai -m window --space 2; yabai -m space --focus 2
+shift + alt - 2 : yabai -m window --space 1; yabai -m space --focus 1
+shift + alt - 1 : yabai -m window --space 2; yabai -m space --focus 2
 
 # Make window native fullscreen
 alt - f         : yabai -m window --toggle zoom-fullscreen
