@@ -83,7 +83,6 @@ brew install woff2
 # Install other useful binaries.
 brew install ack
 brew install bat
-#brew install exiv2
 brew install fzf
 brew install git
 brew install git-lfs
@@ -100,6 +99,7 @@ brew install rlwrap
 brew install koekeishiya/formulae/skhd
 brew install ssh-copy-id
 brew install tree
+brew install tmux
 brew install vbindiff
 brew install koekeishiya/formulae/yabai
 brew install zopfli
