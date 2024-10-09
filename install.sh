@@ -13,6 +13,7 @@ symlink() {
 # NOTE: dotfiles config
 dotfiles=(
 	gitconfig
+	tmux.conf
 )
 
 for f in "${dotfiles[@]}"; do
