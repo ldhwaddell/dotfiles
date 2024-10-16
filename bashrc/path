@@ -19,3 +19,6 @@ esac
 
 # Add cargo
 . "$HOME/.cargo/env"
+
+# Created by `pipx` on 2024-10-16 19:10:20
+export PATH="$PATH:/Users/lucaswaddell/.local/bin"
