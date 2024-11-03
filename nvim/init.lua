@@ -623,6 +623,24 @@ require('lazy').setup({
         -- But for many setups, the LSP (`tsserver`) will work just fine
         ts_ls = {},
         --
+        ruff = { settings = {
+          logLevel = 'debug',
+        } },
+        ruff_lsp = {},
+        pyright = {
+          settings = {
+            pyright = {
+              -- Using Ruff's import organizer
+              disableOrganizeImports = true,
+            },
+            python = {
+              analysis = {
+                -- Ignore all files for analysis to exclusively use Ruff for linting
+                ignore = { '*' },
+              },
+            },
+          },
+        },
 
         lua_ls = {
           -- cmd = {...},
