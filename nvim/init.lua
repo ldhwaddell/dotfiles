@@ -624,6 +624,7 @@ require('lazy').setup({
         ts_ls = {},
         ruby_lsp = {},
         terraformls = {},
+        bashls = {},
 
         --
         ruff = { settings = {
@@ -728,6 +729,8 @@ require('lazy').setup({
         lua = { 'stylua' },
         markdown = { 'mdformat' },
         ruby = { 'rubyfmt' },
+        sh = { 'shfmt' },
+        bash = { 'shfmt' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
