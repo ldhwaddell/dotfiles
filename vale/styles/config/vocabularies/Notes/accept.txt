@@ -3,3 +3,8 @@
 (?i)cond
 (?i)sqrt
 (?i)repl
+(?i)seqs
+(?i)env
+(?i)params
+(?i)subexpr
+(?i)algo
