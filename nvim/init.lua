@@ -622,6 +622,9 @@ require('lazy').setup({
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
         ts_ls = {},
+        ruby_lsp = {},
+        terraformls = {},
+
         --
         ruff = { settings = {
           logLevel = 'debug',
@@ -724,6 +727,7 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { 'stylua' },
         markdown = { 'mdformat' },
+        ruby = { 'rubyfmt' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
