@@ -1,6 +1,6 @@
 # Program shortcuts 
-cmd - return : osascript -e 'tell application "iTerm2" to create window with default profile command ""' || open -na iTerm
-cmd + shift - return : open -n -a "Google Chrome"
+cmd - return : open -na ghostty
+cmd + shift - return : open -na "Google Chrome"
 
 # Focus window
 alt - h : yabai -m window --focus west
