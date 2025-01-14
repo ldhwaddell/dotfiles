@@ -3,3 +3,6 @@ macos-titlebar-style = transparent
 
 cursor-style = block 
 shell-integration-features = no-cursor
+
+macos-titlebar-proxy-icon = hidden
+title = " "
