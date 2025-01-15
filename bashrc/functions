@@ -1,40 +1,46 @@
 #!/usr/bin/env bash
 
+# Shortcut to run daily intentions script
+function intent() {
+	cd ~/Desktop/PERSONAL/LIFEOS/
+	uv run define_intent.py
+}
+
 # Creates a new directory and enters in
 function mkd() {
-        mkdir -p "@" && cd "$_";
+	mkdir -p "@" && cd "$_"
 }
 
 # Determine size of a file or total size of a directory
 function fs() {
-	if du -b /dev/null > /dev/null 2>&1; then
-		local arg=-sbh;
+	if du -b /dev/null >/dev/null 2>&1; then
+		local arg=-sbh
 	else
-		local arg=-sh;
+		local arg=-sh
 	fi
 	if [[ -n "$@" ]]; then
-		du $arg -- "$@";
+		du $arg -- "$@"
 	else
-		du $arg .[^.]* ./*;
-	fi;
+		du $arg .[^.]* ./*
+	fi
 }
 
 # Use Git’s colored diff when available
-hash git &>/dev/null;
+hash git &>/dev/null
 if [ $? -eq 0 ]; then
 	function diff() {
-		git diff --no-index --color-words "$@";
+		git diff --no-index --color-words "$@"
 	}
-fi;
+fi
 
 # Normalize `open` across Linux, macOS, and Windows.
 # This is needed to make the `o` function (see below) cross-platform.
 if [ ! $(uname -s) = 'Darwin' ]; then
 	if grep -q Microsoft /proc/version; then
 		# Ubuntu on Windows using the Linux subsystem
-		alias open='explorer.exe';
+		alias open='explorer.exe'
 	else
-		alias open='xdg-open';
+		alias open='xdg-open'
 	fi
 fi
 
@@ -42,10 +48,10 @@ fi
 # location
 function o() {
 	if [ $# -eq 0 ]; then
-		open .;
+		open .
 	else
-		open "$@";
-	fi;
+		open "$@"
+	fi
 }
 
 # `tre` is a shorthand for `tree` with hidden files and color enabled, ignoring
@@ -53,66 +59,63 @@ function o() {
 # `less` with options to preserve color and line numbers, unless the output is
 # small enough for one screen.
 function tre() {
-	tree -aC -I '.git|node_modules' --dirsfirst "$@" | less -FRNX;
+	tree -aC -I '.git|node_modules' --dirsfirst "$@" | less -FRNX
 }
-
 
 # Access chrome history
 ch() {
-  local cols sep
-  cols=$(( COLUMNS / 3 ))
-  sep='{::}'
+	local cols sep
+	cols=$((COLUMNS / 3))
+	sep='{::}'
 
-  cp -f ~/Library/Application\ Support/Google/Chrome/Default/History /tmp/h
+	cp -f ~/Library/Application\ Support/Google/Chrome/Default/History /tmp/h
 
-  sqlite3 -separator $sep /tmp/h \
-    "select substr(title, 1, $cols), url
+	sqlite3 -separator $sep /tmp/h \
+		"select substr(title, 1, $cols), url
      from urls order by last_visit_time desc" |
-  awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' |
-  fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs open
+		awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' |
+		fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs open
 }
 
 # Calculate CPU load / Core Count
 load() {
 	node -p <<-EOF
-	var os = require('os');
-	var c = os.cpus().length;
-	os.loadavg().map(function(l) {
-		return (l/c).toFixed(2);
-	}).join(' ');
+		var os = require('os');
+		var c = os.cpus().length;
+		os.loadavg().map(function(l) {
+			return (l/c).toFixed(2);
+		}).join(' ');
 	EOF
 }
 
 # Platform-independent memory usage
 meminfo() {
 	node <<-EOF
-	var os = require('os');
-	var free = os.freemem();
-	var total = os.totalmem();
-	var used = total - free;
-	console.log('memory: %dmb / %dmb (%d%%)',
-	    Math.round(used / 1024 / 1024),
-	    Math.round(total / 1024 / 1024),
-	    Math.round(used * 100 / total));
+		var os = require('os');
+		var free = os.freemem();
+		var total = os.totalmem();
+		var used = total - free;
+		console.log('memory: %dmb / %dmb (%d%%)',
+		    Math.round(used / 1024 / 1024),
+		    Math.round(total / 1024 / 1024),
+		    Math.round(used * 100 / total));
 	EOF
 }
-
 
 # Platform-independent interfaces
 interfaces() {
 	node <<-EOF
-	var os = require('os');
-	var i = os.networkInterfaces();
-	Object.keys(i).forEach(function(name) {
-		i[name].forEach(function(int) {
-			if (int.family === 'IPv4') {
-				console.log('%s: %s', name, int.address);
-			}
+		var os = require('os');
+		var i = os.networkInterfaces();
+		Object.keys(i).forEach(function(name) {
+			i[name].forEach(function(int) {
+				if (int.family === 'IPv4') {
+					console.log('%s: %s', name, int.address);
+				}
+			});
 		});
-	});
 	EOF
 }
-
 
 # Open the current path or file in GitHub
 gho() {
@@ -132,10 +135,10 @@ gho() {
 
 	# extract the username and repo name
 	local a
-	IFS=:/ read -a a <<< "$url"
+	IFS=:/ read -a a <<<"$url"
 	local len=${#a[@]}
-	local user=${a[len-2]}
-	local repo=${a[len-1]%.git}
+	local user=${a[len - 2]}
+	local repo=${a[len - 1]%.git}
 
 	url="https://github.com/$user/$repo/tree/$branch$path"
 	echo "$url"
@@ -144,12 +147,12 @@ gho() {
 
 # Search dotfiles to find what I'm forgetting
 forget() {
-  if [ ! "$#" -gt 0 ]; then 
-    echo "Need a search term!"; 
-    return 1; 
-  fi
+	if [ ! "$#" -gt 0 ]; then
+		echo "Need a search term!"
+		return 1
+	fi
 
-  local dotfiles_dir="$HOME/git/dotfiles"
+	local dotfiles_dir="$HOME/git/dotfiles"
 
-  rg --color=always --hidden --glob '!.git' "$1" "$dotfiles_dir" --pretty --context 3 | less -R
+	rg --color=always --hidden --glob '!.git' "$1" "$dotfiles_dir" --pretty --context 3 | less -R
 }
