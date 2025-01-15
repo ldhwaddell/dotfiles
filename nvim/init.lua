@@ -630,7 +630,6 @@ require('lazy').setup({
         ruff = { settings = {
           logLevel = 'debug',
         } },
-        ruff_lsp = {},
         pyright = {
           settings = {
             pyright = {
