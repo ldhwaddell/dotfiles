@@ -222,6 +222,24 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
+-- Custom functions
+
+local function newscratch()
+  -- Open a vertical split and create a new buffer
+  vim.cmd 'vsplit'
+  vim.cmd 'enew'
+
+  vim.bo.buftype = 'nofile' -- Buffer is not associated with a file
+  vim.bo.bufhidden = 'hide' -- Keep buffer in memory when abandoned
+  vim.bo.swapfile = false -- Disable swap file for this buffer
+end
+
+-- Create a custom command `:Ns` to call the `newscratch` function
+vim.api.nvim_create_user_command('Ns', newscratch, { nargs = 0 })
+
+-- Bind the function to `<leader>n`
+vim.keymap.set('n', '<leader>n', newscratch, { noremap = true, silent = true })
+
 -- [[ Configure and install plugins ]]
 --
 --  To check the current status of your plugins, run
@@ -327,6 +345,7 @@ require('lazy').setup({
         { '<leader>w', group = '[W]orkspace' },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+        { '<leader>n', group = '[N]ew scratch buffer' },
       },
     },
   },
@@ -734,7 +753,9 @@ require('lazy').setup({
         -- python = { "isort", "black" },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { "prettierd", "prettier", stop_after_first = true },
+        typescript = { 'prettierd' },
+        typescriptreact = { 'prettierd' },
+        javascript = { 'prettierd' },
       },
     },
   },
