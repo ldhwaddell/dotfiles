@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-cd "$(dirname "${BASH_SOURCE}")";
+cd "$(dirname "${BASH_SOURCE}")"
 
-git pull origin main;
+git pull origin main
 
 # verbose ln, because `ln -v` is not portable
 symlink() {
@@ -18,7 +18,7 @@ dotfiles=(
 
 for f in "${dotfiles[@]}"; do
 	[[ -d ~/.$f && ! -L ~/.$f ]] && rm -r ~/."$f"
-	symlink "$PWD/$f" ~/."$f"
+	symlink "$PWD/tools/$f" ~/."$f"
 done
 
 # NOTE: Bash config
@@ -37,26 +37,25 @@ bash_dotfiles=(
 
 for f in "${bash_dotfiles[@]}"; do
 	[[ -d ~/.$f && ! -L ~/.$f ]] && rm -r ~/."$f"
-	symlink "$PWD/bashrc/$f" ~/."$f"
+	symlink "$PWD/tools/bashrc/$f" ~/."$f"
 done
-
 
 # NOTE: application config folders
 config_folders=(
 	git
-	iterm2
 	nvim
 	skhd
 	yabai
+	ghostty
 )
 
 # Check if ~/.config exists, and create it if it doesn't
 if [[ ! -d ~/.config ]]; then
-    mkdir ~/.config
-    echo "Created ~/.config directory."
+	mkdir ~/.config
+	echo "Created ~/.config directory."
 fi
 
 for f in "${config_folders[@]}"; do
 	[[ -d ~/.config/$f && ! -L ~/.config/$f ]] && rm -r ~/.config/"$f"
-	symlink "$PWD/$f" ~/.config/"$f"
+	symlink "$PWD/tools/$f" ~/.config/"$f"
 done
