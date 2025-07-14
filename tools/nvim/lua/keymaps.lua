@@ -41,3 +41,4 @@ local utils = require 'utils'
 -- Util Keymaps
 vim.keymap.set('n', '<leader>n', utils.new_scratch, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>uf', utils.copy_file_name, { desc = 'Copy [F]ile name' })
+vim.keymap.set('n', '<leader>ui', utils.file_info, { desc = 'Show file [I]nfo' })

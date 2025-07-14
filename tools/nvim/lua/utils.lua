@@ -18,4 +18,11 @@ M.copy_file_name = function()
   end
 end
 
+M.file_info = function()
+  local path = vim.fn.expand '%:p'
+  local lines = vim.fn.line '$'
+  local modified = vim.bo.modified and '[+]' or ''
+  print(string.format('%s  |  %d lines %s', path, lines, modified))
+end
+
 return M
