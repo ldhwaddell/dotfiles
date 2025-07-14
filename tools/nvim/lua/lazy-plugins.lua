@@ -6,6 +6,7 @@ require('lazy').setup({
   require 'plugins.conform',
   require 'plugins.gitsigns',
   require 'plugins.indent-line',
+  require 'plugins.lazygit',
   require 'plugins.lint',
   require 'plugins.lsp-config',
   require 'plugins.mini',
