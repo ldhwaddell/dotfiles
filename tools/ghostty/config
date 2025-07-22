@@ -1,8 +1,17 @@
 theme = tokyonight_night
 macos-titlebar-style = transparent
+macos-titlebar-proxy-icon = hidden
+
+font-family = Berkeley Mono
+font-style = Regular
+font-thicken = true
 
 cursor-style = block 
+cursor-style-blink = false
 shell-integration-features = no-cursor
 
-macos-titlebar-proxy-icon = hidden
-title = " "
+window-padding-balance = true
+window-padding-color = extend
+
+confirm-close-surface = false
+unfocused-split-opacity = 0.8
