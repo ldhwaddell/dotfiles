@@ -13,7 +13,6 @@ symlink() {
 # NOTE: dotfiles config
 dotfiles=(
 	gitconfig
-	tmux.conf
 )
 
 for f in "${dotfiles[@]}"; do
@@ -23,7 +22,6 @@ done
 
 # NOTE: Bash config
 bash_dotfiles=(
-	extra
 	path
 	bash_prompt
 	bash_profile
@@ -31,7 +29,6 @@ bash_dotfiles=(
 	exports
 	aliases
 	functions
-	extra
 	inputrc
 )
 
