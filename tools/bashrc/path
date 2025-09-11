@@ -25,3 +25,6 @@ export PATH="$PATH:/Users/lucaswaddell/.local/bin"
 
 # Ruby
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+
+# bob nvim shim
+. "/Users/lucaswaddell/.local/share/bob/env/env.sh"
