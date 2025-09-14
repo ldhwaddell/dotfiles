@@ -42,6 +42,7 @@ config_folders=(
 	git
 	nvim
 	ghostty
+	aerospace
 )
 
 # Check if ~/.config exists, and create it if it doesn't
