@@ -41,8 +41,6 @@ done
 config_folders=(
 	git
 	nvim
-	skhd
-	yabai
 	ghostty
 )
 

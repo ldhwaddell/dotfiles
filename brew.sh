@@ -96,12 +96,10 @@ brew install pv
 brew install rename
 brew install ripgrep
 brew install rlwrap
-brew install koekeishiya/formulae/skhd
 brew install ssh-copy-id
 brew install tree
 brew install tmux
 brew install vbindiff
-brew install koekeishiya/formulae/yabai
 brew install zopfli
 
 # Remove outdated versions from the cellar.
