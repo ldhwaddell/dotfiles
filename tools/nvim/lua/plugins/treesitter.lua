@@ -2,6 +2,7 @@ return {
 
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
+    -- Neovim 0.11 needs the legacy branch; `main` is a rewrite for 0.12/nightly.
     branch = 'master',
     build = ':TSUpdate',
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
