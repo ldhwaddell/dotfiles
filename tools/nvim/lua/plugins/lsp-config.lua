@@ -216,7 +216,8 @@ return {
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
-        ts_ls = {},
+        -- ts_ls = {},
+        tsgo = {},
         bashls = {},
 
         --
@@ -225,16 +226,17 @@ return {
         } },
         pyright = {
           settings = {
-            pyright = {
-              -- Using Ruff's import organizer
-              disableOrganizeImports = true,
-            },
-            python = {
-              analysis = {
-                -- Ignore all files for analysis to exclusively use Ruff for linting
-                ignore = { '*' },
-              },
-            },
+            ty = {},
+            -- pyright = {
+            --   -- Using Ruff's import organizer
+            --   disableOrganizeImports = true,
+            -- },
+            -- python = {
+            --   analysis = {
+            --     -- Ignore all files for analysis to exclusively use Ruff for linting
+            --     ignore = { '*' },
+            --   },
+            -- },
           },
         },
 
