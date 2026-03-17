@@ -39,10 +39,9 @@ done
 
 # NOTE: application config folders
 config_folders=(
-	git
 	nvim
 	ghostty
-	aerospace
+#	aerospace
 )
 
 # Check if ~/.config exists, and create it if it doesn't

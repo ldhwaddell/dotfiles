@@ -34,7 +34,7 @@ if ! fgrep -q "${BREW_PREFIX}/bin/bash" /etc/shells; then
 fi
 
 # Install `wget` with IRI support.
-brew install wget
+# brew install wget
 
 # Install GnuPG to enable PGP-signing commits.
 # brew install gnupg
@@ -43,15 +43,15 @@ brew install wget
 brew install neovim
 brew install grep
 brew install openssh
-brew install screen
-brew install php
-brew install gmp
+# brew install screen
+# brew install php
+# brew install gmp
 
 # Install font tools.
-brew tap bramstein/webfonttools
-brew install sfnt2woff
-brew install sfnt2woff-zopfli
-brew install woff2
+# brew tap bramstein/webfonttools
+# brew install sfnt2woff
+# brew install sfnt2woff-zopfli
+# brew install woff2
 
 # Install some CTF tools; see https://github.com/ctfs/write-ups.
 # brew install aircrack-ng
@@ -80,27 +80,27 @@ brew install woff2
 # brew install xz
 
 # Install other useful binaries.
-brew install ack
+# brew install ack
 brew install bat
 brew install fzf
 brew install git
 brew install git-lfs
-brew install gs
+# brew install gs
 brew install imagemagick
 brew install lazygit
 brew install lua
-brew install lynx
+# brew install lynx
 brew install p7zip
 brew install pigz
 brew install pv
-brew install rename
+# brew install rename
 brew install ripgrep
-brew install rlwrap
+# brew install rlwrap
 brew install ssh-copy-id
 brew install tree
-brew install tmux
-brew install vbindiff
-brew install zopfli
+# brew install tmux
+# brew install vbindiff
+# brew install zopfli
 
 # Remove outdated versions from the cellar.
 brew cleanup
