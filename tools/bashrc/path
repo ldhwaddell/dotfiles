@@ -1,27 +1,17 @@
-# Add homebrew
-export PATH="/opt/homebrew/bin:$PATH"
-export PATH="/opt/homebrew/sbin:$PATH"
+# Homebrew on Apple Silicon and Intel Macs.
+if [[ -d /opt/homebrew ]]; then
+	_brew_prefix=/opt/homebrew
+elif [[ -d /usr/local/Homebrew ]]; then
+	_brew_prefix=/usr/local
+else
+	_brew_prefix=
+fi
 
-# Add `~/bin` to the `$PATH`
-export PATH="$HOME/bin:$PATH";
+if [[ -n $_brew_prefix ]]; then
+	export PATH="$_brew_prefix/bin:$_brew_prefix/sbin:$PATH"
+	[[ -d $_brew_prefix/opt/rustup/bin ]] && export PATH="$_brew_prefix/opt/rustup/bin:$PATH"
+fi
 
-# Add NVM to path
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
 
-# Add pnpm
-# export PNPM_HOME="/Users/lucaswaddell/Library/pnpm"
-# case ":$PATH:" in
-#   *":$PNPM_HOME:"*) ;;
-#   *) export PATH="$PNPM_HOME:$PATH" ;;
-# esac
-
-# Add cargo
-# . "$HOME/.cargo/env"
-
-# Created by `pipx` on 2024-10-16 19:10:20
-# export PATH="$PATH:/Users/lucaswaddell/.local/bin"
-
-# Ruby
-# export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+unset _brew_prefix

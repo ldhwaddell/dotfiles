@@ -2,7 +2,7 @@
 
 # Shortcut to run daily intentions script
 function intent() {
-	cd ~/Desktop/PERSONAL/LIFEOS/
+	cd "$HOME/Desktop/PERSONAL/LIFEOS/" || return
 	uv run define_intent.py
 }
 
@@ -13,16 +13,15 @@ function fs() {
 	else
 		local arg=-sh
 	fi
-	if [[ -n "$@" ]]; then
-		du $arg -- "$@"
+	if (($#)); then
+		du "$arg" -- "$@"
 	else
 		du $arg .[^.]* ./*
 	fi
 }
 
 # Use Git’s colored diff when available
-hash git &>/dev/null
-if [ $? -eq 0 ]; then
+if command -v git >/dev/null 2>&1; then
 	function diff() {
 		git diff --no-index --color-words "$@"
 	}
@@ -30,7 +29,7 @@ fi
 
 # Normalize `open` across Linux, macOS, and Windows.
 # This is needed to make the `o` function (see below) cross-platform.
-if [ ! $(uname -s) = 'Darwin' ]; then
+if [[ $(uname -s) != Darwin ]]; then
 	if grep -q Microsoft /proc/version; then
 		# Ubuntu on Windows using the Linux subsystem
 		alias open='explorer.exe'
@@ -50,28 +49,37 @@ function o() {
 }
 
 function tre() {
-  local fd_args=()
-  if [[ "$1" == "-a" ]]; then
-    fd_args+=(-u)
-    shift
-  fi
+	local fd_args=()
+	if [[ ${1:-} == -a ]]; then
+		fd_args+=(-u)
+		shift
+	fi
 
-  fd "${fd_args[@]}" . "$@" | tree -C --fromfile --dirsfirst | less -FRNX
+	fd "${fd_args[@]}" . "$@" | tree -C --fromfile --dirsfirst | less -FRNX
 }
 
 # Access chrome history
 ch() {
-	local cols sep
-	cols=$((COLUMNS / 3))
+	local cols sep history_copy selected
+	cols=$(( ${COLUMNS:-120} / 3 ))
 	sep='{::}'
+	history_copy=$(mktemp "${TMPDIR:-/tmp}/chrome-history.XXXXXX") || return
 
-	cp -f ~/Library/Application\ Support/Google/Chrome/Default/History /tmp/h
+	cp -f "$HOME/Library/Application Support/Google/Chrome/Default/History" "$history_copy" || {
+		rm -f "$history_copy"
+		return 1
+	}
 
-	sqlite3 -separator $sep /tmp/h \
+	selected=$(sqlite3 -separator "$sep" "$history_copy" \
 		"select substr(title, 1, $cols), url
-     from urls order by last_visit_time desc" |
-		awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' |
-		fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs open
+	     from urls order by last_visit_time desc" |
+		awk -F "$sep" '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' |
+		fzf --ansi --multi | sed 's#.*\(https*://\)#\1#')
+	rm -f "$history_copy"
+
+	while IFS= read -r url; do
+		[[ -n $url ]] && open "$url"
+	done <<<"$selected"
 }
 
 # Calculate CPU load / Core Count
@@ -116,13 +124,14 @@ interfaces() {
 
 # Open the current path or file in GitHub
 gho() {
-	local file=$1
+	local file=${1:-}
 	local remote=${2:-origin}
 
 	# get the git root dir, branch, and remote URL
-	local gr=$(git rev-parse --show-toplevel)
-	local branch=$(git rev-parse --abbrev-ref HEAD)
-	local url=$(git config --get "remote.$remote.url")
+	local gr branch url
+	gr=$(git rev-parse --show-toplevel) || return
+	branch=$(git rev-parse --abbrev-ref HEAD) || return
+	url=$(git config --get "remote.$remote.url") || return
 
 	[[ -n $gr && -n $branch && -n $remote ]] || return 1
 

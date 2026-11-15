@@ -1,17 +1,49 @@
+# Ghostty - macOS
+# Docs: ghostty +show-config --default --docs
+# Cmd+Shift+Comma reloads most settings. quick-terminal-position and
+# background-opacity need a full quit + relaunch on macOS.
+
+# Typography
+font-family = JetBrainsMonoNerdFont
+font-size = 14
+font-thicken = true
+adjust-cell-height = 2
+
+# Theme
 theme = TokyoNight Night
-macos-titlebar-style = transparent
+
+# Window
+background-opacity = 0.9
+background-blur = 20
+window-padding-y = 2
+window-padding-balance = equal
+window-padding-color = extend
+window-save-state = always
+unfocused-split-opacity = 0.8
 macos-titlebar-proxy-icon = hidden
 
-font-family = Berkeley Mono
-font-style = Regular
-font-thicken = true
-
+# Cursor
 cursor-style = block
-cursor-style-blink = false
+cursor-style-blink = true
+cursor-opacity = 0.8
 shell-integration-features = no-cursor
 
-window-padding-balance = true
-window-padding-color = extend
+# Mouse
+mouse-hide-while-typing = true
+copy-on-select = clipboard
 
+# Session
 confirm-close-surface = false
-unfocused-split-opacity = 0.8
+
+# Quick terminal (Ctrl+backtick)
+quick-terminal-position = bottom
+quick-terminal-screen = mouse
+quick-terminal-animation-duration = 0
+
+# Keybinds that differ from the default set
+macos-option-as-alt = true
+keybind = global:ctrl+grave_accent=toggle_quick_terminal
+keybind = cmd+shift+left=previous_tab
+keybind = cmd+shift+right=next_tab
+keybind = cmd+shift+e=equalize_splits
+keybind = cmd+shift+f=toggle_split_zoom
